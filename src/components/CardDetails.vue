@@ -7,24 +7,20 @@
         </button>
         <div class="card-details-modal-info">
           <p class="card-details-modal-title">
-            Title : {{ events.filter((el) => el.id === $attrs.id)[0].title }}
+            Title : {{ targetEvent.title }}
           </p>
           <p class="card-details-modal-title">
-            Category :
-            {{ events.filter((el) => el.id === $attrs.id)[0].category }}
+            Category : {{ targetEvent.category }}
           </p>
           <p class="card-details-modal-title">
-            Description :
-            {{ events.filter((el) => el.id === $attrs.id)[0].description }}
+            Description : {{ targetEvent.description }}
           </p>
           <p class="card-details-modal-title">
             Organizer :
             {{
-              events.filter((el) => el.id === $attrs.id)[0].organizer instanceof
-              Object
-                ? events.filter((el) => el.id === $attrs.id)[0].organizer.user
-                    .name
-                : events.filter((el) => el.id === $attrs.id)[0].organizer
+              targetEvent.organizer instanceof Object
+                ? targetEvent.organizer.user.name
+                : targetEvent.organizer
             }}
           </p>
         </div>
@@ -35,11 +31,19 @@
 
 <script lang="ts">
 import router from "@/router";
-import Vue from "vue";
+import Vue from 'vue';
+import { IEvent } from '@/types/types';
 export default Vue.extend({
-  components: {},
-  props: {
-    events: [],
+  props: ['events'],
+  data() {
+    return {
+      eventId: this.$route.params.id
+    }
+  },
+  computed: {
+    targetEvent(): IEvent {
+      return this.events.find((event: IEvent) => event.id === Number(this.eventId))
+    }
   },
   methods: {
     handleClose() {

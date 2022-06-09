@@ -24,7 +24,7 @@ const routes: Array<RouteConfig> = [
     props: true,
     children: [
       {
-        path: '/events/:id',
+        path: ':id',
         name: 'event-details',
         component: CardDetails,
         props: true,
