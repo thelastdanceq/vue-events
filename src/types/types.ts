@@ -5,7 +5,7 @@ export interface IEvent {
     "time": string,
     "location": string,
     "description": string,
-    "organizer": string | IOrganizer,
+    "organizer": string | IOrganizer[] | IOrganizer,
     "category": string,
     "attendees": IAttend[];
 }
@@ -14,8 +14,6 @@ export interface IAttend {
     name: string;
 }
 export interface IOrganizer {
-    user: {
-        "id": string,
-        "name": string
-    }
+    "id": string,
+    "name": string
 }

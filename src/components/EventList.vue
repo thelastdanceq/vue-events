@@ -1,23 +1,26 @@
 <template>
   <div class="card-list">
     <ul class="list">
-      <EventCard v-for="event in events" :key="event.id" :event="event" />
+      <EventCard v-for="event in targetEvents" :key="event.id" :event="event" />
     </ul>
-    <router-view :events="events"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
 <script lang="ts">
+import { IEvent } from "@/types/types";
 import Vue from "vue";
 import EventCard from "./EventCard.vue";
 export default Vue.extend({
   components: {
     EventCard,
   },
-  props: {
-    events: Array,
-  },
   methods: {},
+  computed: {
+    targetEvents(): IEvent[] {
+      return this.$store.state.events.events
+    }
+  },
 });
 </script>
 <style lang="scss" scoped>

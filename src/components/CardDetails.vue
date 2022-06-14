@@ -17,15 +17,18 @@
             Description :
             {{ targetEvent.description }}
           </p>
-          <p class="card-details-modal-title">
+          <p class="card-details-modal-title" v-if="Array.isArray(targetEvent.organizer)">
             Organizer :
-            {{
-                targetEvent.organizer instanceof
-                  Object
-                  ? targetEvent.organizer.user
-                    .name
-                  : targetEvent.organizer
-            }}
+            <span v-for="org in targetEvent.organizer" :key="org.id">{{
+                org.name
+            }}</span>
+          </p>
+          <span v-else> Organizer :
+            {{ targetEvent.organizer }}</span>
+
+          <p class="card-details-modal-title">
+            Attends :
+            <span v-for="attend in targetEvent.attendees" :key="attend.id">{{ `${attend.name} ` }}</span>
           </p>
         </div>
       </div>
@@ -39,7 +42,6 @@ import { IEvent } from "@/types/types";
 import Vue from "vue";
 export default Vue.extend({
   components: {},
-  props: ['events'],
   data() {
     return {
       eventId: this.$route.params.id
@@ -47,7 +49,7 @@ export default Vue.extend({
   },
   computed: {
     targetEvent(): IEvent {
-      return this.events.find((event: IEvent) => event.id === Number(this.eventId))
+      return this.$store.state.events.events.find((event: IEvent) => event.id === Number(this.eventId))
     }
   },
   methods: {

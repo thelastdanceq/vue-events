@@ -1,5 +1,12 @@
 <template>
   <div class="about">
-    <h1>Create a new event</h1>
+    <CreateNewEvent />
   </div>
 </template>
+<script lang="ts">
+import Vue from 'vue'
+import CreateNewEvent from '@/components/CreateNewEvent.vue'
+export default Vue.extend({
+  components: { CreateNewEvent }
+})
+</script>

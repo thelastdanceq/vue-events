@@ -220,12 +220,12 @@ export const events: IEvent[] = [
     {
         "id": 10,
         "category": "animal welfare",
-        "organizer": {
-            "user": {
+        "organizer": [
+            {
                 "id": "abc123",
                 "name": "Adam Jahr"
             }
-        },
+        ],
         "title": "Gregg's Event",
         "description": "We'll do stuff",
         "location": "Your House",
