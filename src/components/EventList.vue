@@ -1,5 +1,6 @@
 <template>
   <div class="card-list">
+
     <ul class="list">
       <EventCard v-for="event in targetEvents" :key="event.id" :event="event" />
     </ul>
@@ -11,6 +12,7 @@
 import { IEvent } from "@/types/types";
 import Vue from "vue";
 import EventCard from "./EventCard.vue";
+
 export default Vue.extend({
   components: {
     EventCard,

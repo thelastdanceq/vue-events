@@ -77,31 +77,56 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 export default Vue.extend({
     methods: {
         handleOrg() {
-            this.newEvent.organizer = [...this.newEvent.organizer, { id: new Date().getMilliseconds() + 3, name: "" }];
+            this.newEvent.organizer = [...this.newEvent.organizer, { id: uuidv4(), name: "" }];
         },
 
         handleAttend() {
-            this.newEvent.attendees = [...this.newEvent.attendees, { id: new Date().getMilliseconds() + 1, name: "" }];
+            this.newEvent.attendees = [...this.newEvent.attendees, { id: uuidv4(), name: "" }];
         },
         handleNewEvent() {
-            this.$store.commit('createEvent', { ...this.newEvent })
+            this.$store.dispatch('toggleLoading')
+            axios.post('http://localhost:3000/events', { ...this.newEvent })
+                .then(data => {
+                    if (data.status === 201) {
+                        this.$store.commit('createEvent', { ...this.newEvent })
+                        alert(`New event with id : ${this.newEvent.id} was created !`)
+                    }
+
+                    this.newEvent = {
+                        id: uuidv4(), //done
+                        title: "", // done 
+                        date: "", //done
+                        time: "", //done
+                        location: "", // done
+                        description: "", //done
+                        organizer: [{ id: uuidv4(), name: "" }],
+                        category: "", //done
+                        attendees: [{ id: uuidv4(), name: "" }],
+                    }
+                })
+                .catch(err => console.log(err))
+                .finally(() => {
+                    this.$store.dispatch('toggleLoading')
+                })
         },
     },
     data() {
         return {
             newEvent: {
-                "id": new Date().getMilliseconds(), //done
+                "id": uuidv4(), //done
                 "title": "", // done 
                 "date": "", //done
                 "time": "", //done
                 "location": "", // done
                 "description": "", //done
-                "organizer": [{ id: new Date().getMilliseconds() + 5, name: "" }],
+                "organizer": [{ id: uuidv4(), name: "" }],
                 "category": "", //done
-                "attendees": [{ id: new Date().getMilliseconds(), name: "" }],
+                "attendees": [{ id: uuidv4(), name: "" }],
             }
         }
     },

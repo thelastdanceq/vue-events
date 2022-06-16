@@ -12,11 +12,15 @@
     <button class="btn deep-purple accent-1 button" @click="deleteHandler">
       delete
     </button>
+    <button class="btn deep-purple accent-1 button" @click="onUpdate">
+      update
+    </button>
   </div>
 </template>
 
 <script lang="ts">
 import router from "@/router";
+import axios from "axios";
 import Vue from "vue";
 
 export default Vue.extend({
@@ -31,7 +35,18 @@ export default Vue.extend({
       });
     },
     deleteHandler() {
-      this.$store.dispatch('deleteEvent', this.event.id)
+      axios.delete(`http://localhost:3000/events/${this.event.id}`)
+        .then((data) => {
+          if (data.status === 200) {
+            this.$store.dispatch('deleteEvent', this.event.id)
+            alert(`Event with id ${this.event.id} was deleted !`)
+          }
+        })
+        .catch(err => console.log(err))
+    },
+    onUpdate() {
+      console.log("asd");
+
     },
   },
 });

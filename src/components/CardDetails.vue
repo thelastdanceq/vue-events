@@ -49,7 +49,7 @@ export default Vue.extend({
   },
   computed: {
     targetEvent(): IEvent {
-      return this.$store.state.events.events.find((event: IEvent) => event.id === Number(this.eventId))
+      return this.$store.state.events.events.find((event: IEvent) => event.id === this.eventId)
     }
   },
   methods: {
