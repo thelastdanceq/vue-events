@@ -7,28 +7,28 @@
         </button>
         <div class="card-details-modal-info">
           <p class="card-details-modal-title">
-            Title : {{ targetEvent.title }}
+            Title : {{ getDetails[0].title }}
           </p>
           <p class="card-details-modal-title">
             Category :
-            {{ targetEvent.category }}
+            {{ getDetails[0].category }}
           </p>
           <p class="card-details-modal-title">
             Description :
-            {{ targetEvent.description }}
+            {{ getDetails[0].description }}
           </p>
-          <p class="card-details-modal-title" v-if="Array.isArray(targetEvent.organizer)">
+          <p class="card-details-modal-title" v-if="Array.isArray(getDetails[0].organizer)">
             Organizer :
-            <span v-for="org in targetEvent.organizer" :key="org.id">{{
+            <span v-for="org in  getDetails[0].organizer" :key="org.id">{{
                 org.name
             }}</span>
           </p>
           <span v-else> Organizer :
-            {{ targetEvent.organizer }}</span>
+            {{ getDetails[0].organizer }}</span>
 
           <p class="card-details-modal-title">
             Attends :
-            <span v-for="attend in targetEvent.attendees" :key="attend.id">{{ `${attend.name} ` }}</span>
+            <span v-for="attend in  getDetails[0].attendees" :key="attend.id">{{ `${attend.name} ` }}</span>
           </p>
         </div>
       </div>
@@ -39,21 +39,25 @@
 <script lang="ts">
 import router from "@/router";
 import { IEvent } from "@/types/types";
+import axios from "axios";
 import Vue from "vue";
+import { mapGetters } from "vuex";
 export default Vue.extend({
   components: {},
   data() {
     return {
-      eventId: this.$route.params.id
+      eventId: this.$route.params.id,
     }
   },
+  mounted() {
+    axios.get(`http://localhost:3000/events?id=${this.eventId}`)
+      .then(data => this.$store.dispatch("fillDetails", data.data))
+      .catch(err => console.log(err))
+  },
   computed: {
-    targetEvent(): IEvent {
-
-      console.log(this.$store.state.events.events);
-
-      return this.$store.state.events.events.find((event: IEvent) => event.id === this.eventId)
-    }
+    ...mapGetters([
+      "getDetails"
+    ])
   },
   methods: {
     handleClose() {

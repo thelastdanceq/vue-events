@@ -273,27 +273,6 @@
           "name": ""
         }
       ]
-    },
-    {
-      "id": "a40cddb0-15f9-40ea-9229-70cdaecf8ab0",
-      "title": "",
-      "date": "",
-      "time": "",
-      "location": "",
-      "description": "",
-      "organizer": [
-        {
-          "id": "ccdf708b-e5e7-45d5-9b1c-25cf1bf07d3c",
-          "name": ""
-        }
-      ],
-      "category": "",
-      "attendees": [
-        {
-          "id": "5da85da8-4f81-415b-9d17-e755d3941c23",
-          "name": ""
-        }
-      ]
     }
   ]
 }
