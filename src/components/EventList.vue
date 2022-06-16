@@ -32,8 +32,6 @@ export default Vue.extend({
   methods: {
     onChangePage(id: number) {
       this.$store.dispatch('setCurrentPage', id)
-
-
       axios.get(`http://localhost:3000/events?_limit=${this.$store.state.pagination.delimiter}&_page=${id}`)
         .then(data => {
           this.$store.dispatch('fillEvents', data.data)

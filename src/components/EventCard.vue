@@ -9,7 +9,7 @@
     <button class="btn deep-purple accent-1 button" @click="handleClick">
       details
     </button>
-    <button class="btn deep-purple accent-1 button" @click="deleteHandler">
+    <button class="btn deep-purple accent-1 button" @click="deleteHandle">
       delete
     </button>
     <button class="btn deep-purple accent-1 button" @click="onUpdate">
@@ -34,21 +34,25 @@ export default Vue.extend({
         params: { id: this.event.id },
       });
     },
-    deleteHandler() {
-      axios.delete(`http://localhost:3000/events/${this.event.id}`)
+    async deleteHandle() {
+      await axios.delete(`http://localhost:3000/events/${this.event.id}`)
         .then((data) => {
-          console.log(data);
-
           if (data.status === 200) {
-            this.$store.dispatch('deleteEvent', this.event.id)
             alert(`Event with id ${this.event.id} was deleted !`)
           }
+        })
+        .catch(err => console.log(err))
+
+      await axios.get(`http://localhost:3000/events?_limit=${this.$store.state.pagination.delimiter}&_page=${this.$store.state.pagination.currentPage}`)
+        .then(data => {
+          this.$store.dispatch('setTotalItems', data.headers['x-total-count'])
+
+          this.$store.dispatch('fillEvents', data.data)
         })
         .catch(err => console.log(err))
     },
     onUpdate() {
       console.log("asd");
-
     },
   },
 });
