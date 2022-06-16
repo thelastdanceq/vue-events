@@ -1,13 +1,14 @@
+import { Commit } from "vuex";
 
 export const loadingModule = {
     state: () => ({ isLoading: true }),
     mutations: {
-        toggleLoading(state: { isLoading: boolean }) {
-            state.isLoading = !state.isLoading;
+        toggleLoading(state: { isLoading: boolean }, to: boolean) {
+            state.isLoading = to
         },
     },
     actions: {
-        toggleLoading({ commit }: any) {
+        toggleLoading({ commit }: { commit: Commit }) {
             commit('toggleLoading')
         },
     },

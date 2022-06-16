@@ -37,6 +37,8 @@ export default Vue.extend({
     deleteHandler() {
       axios.delete(`http://localhost:3000/events/${this.event.id}`)
         .then((data) => {
+          console.log(data);
+
           if (data.status === 200) {
             this.$store.dispatch('deleteEvent', this.event.id)
             alert(`Event with id ${this.event.id} was deleted !`)

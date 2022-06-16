@@ -1,4 +1,5 @@
 import { IEvent } from "@/types/types";
+import { Commit } from "vuex";
 
 export const eventsModule = {
     state: () => ({ events: [] }),
@@ -9,14 +10,21 @@ export const eventsModule = {
         createEvent(state: { events: IEvent[] }, event: IEvent) {
             state.events = [event, ...state.events]
         },
+        fillEvents(state: { events: IEvent[] }, events: IEvent[]) {
+            state.events = [...events]
+        },
     },
     actions: {
-        deleteEvent({ commit }: any, id: number) {
+        deleteEvent({ commit }: { commit: Commit }, id: number) {
             commit('deleteEvent', id)
         },
-        createEvent({ commit }: any, event: IEvent) {
+        createEvent({ commit }: { commit: Commit }, event: IEvent) {
             commit('createEvent', event)
         },
+        fillEvents({ commit }: { commit: Commit }, events: IEvent[]) {
+            commit('fillEvents', events)
+        },
+
     },
     getters: {}
 }

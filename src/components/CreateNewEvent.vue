@@ -89,11 +89,10 @@ export default Vue.extend({
             this.newEvent.attendees = [...this.newEvent.attendees, { id: uuidv4(), name: "" }];
         },
         handleNewEvent() {
-            this.$store.dispatch('toggleLoading')
+            this.$store.dispatch('toggleLoading', false)
             axios.post('http://localhost:3000/events', { ...this.newEvent })
                 .then(data => {
                     if (data.status === 201) {
-                        this.$store.commit('createEvent', { ...this.newEvent })
                         alert(`New event with id : ${this.newEvent.id} was created !`)
                     }
 
@@ -111,7 +110,7 @@ export default Vue.extend({
                 })
                 .catch(err => console.log(err))
                 .finally(() => {
-                    this.$store.dispatch('toggleLoading')
+                    this.$store.dispatch('toggleLoading', true)
                 })
         },
     },

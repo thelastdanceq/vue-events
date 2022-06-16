@@ -49,6 +49,9 @@ export default Vue.extend({
   },
   computed: {
     targetEvent(): IEvent {
+
+      console.log(this.$store.state.events.events);
+
       return this.$store.state.events.events.find((event: IEvent) => event.id === this.eventId)
     }
   },

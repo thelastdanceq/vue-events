@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <PreLoder v-if="$store.state.isLoading" />
+    <PreLoder v-if="$store.state.loading.isLoading" />
 
     <nav class="deep-purple accent-1 nav" v-else>
       <router-link to="/">Home</router-link>
@@ -13,21 +13,10 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios';
 import Vue from 'vue'
-import { IEvent } from './types/types';
+// import { IEvent } from './types/types';
 import PreLoder from './components/PreLoder.vue';
 export default Vue.extend({
-  mounted() {
-    axios.get('http://localhost:3000/events')
-      .then(data => {
-        data.data.map((eventasd: IEvent) => this.$store.dispatch('createEvent', eventasd))
-      })
-      .catch(err => console.log(err))
-      .finally(() => {
-        this.$store.dispatch('toggleLoading')
-      })
-  },
   components: {
     PreLoder
   }
