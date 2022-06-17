@@ -19,5 +19,7 @@ export const paginationModule = {
             commit('setTotalItems', num)
         },
     },
-    getters: {}
+    getters: {
+        getPageInfo: (state: { currentPage: number, totalItems: number, delimiter: number }) => ({ ...state })
+    }
 }

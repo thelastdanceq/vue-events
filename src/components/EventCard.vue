@@ -22,10 +22,14 @@
 import router from "@/router";
 import axios from "axios";
 import Vue from "vue";
+import { mapGetters } from "vuex";
 
 export default Vue.extend({
   props: {
     event: Object,
+  },
+  computed: {
+    ...mapGetters(["getPageInfo"]),
   },
   methods: {
     handleClick() {
@@ -39,14 +43,17 @@ export default Vue.extend({
         .then((data) => {
           if (data.status === 200) {
             alert(`Event with id ${this.event.id} was deleted !`)
+            this.$store.dispatch('setTotalItems', this.getPageInfo.totalItems - 1)
           }
         })
         .catch(err => console.log(err))
-
-      await axios.get(`http://localhost:3000/events?_limit=${this.$store.state.pagination.delimiter}&_page=${this.$store.state.pagination.currentPage}`)
+      const pages = (this.getPageInfo.currentPage > this.getPageInfo.totalItems / this.getPageInfo.delimiter)
+        ? this.getPageInfo.currentPage - 1
+        : this.getPageInfo.currentPage
+      await axios.get(`http://localhost:3000/events?_limit=${this.getPageInfo.delimiter}&_page=${pages}`)
         .then(data => {
+          this.$store.dispatch('setCurrentPage', pages)
           this.$store.dispatch('setTotalItems', data.headers['x-total-count'])
-
           this.$store.dispatch('fillEvents', data.data)
         })
         .catch(err => console.log(err))

@@ -33,8 +33,9 @@ export default Vue.extend({
     onChangePage(id: number) {
       this.$store.dispatch('setCurrentPage', id)
       axios.get(`http://localhost:3000/events?_limit=${this.$store.state.pagination.delimiter}&_page=${id}`)
-        .then(data => {
+        .then(data => { 
           this.$store.dispatch('fillEvents', data.data)
+          this.$store.dispatch('setTotalItems', data.headers['x-total-count'])
         })
         .catch(err => console.log(err))
     }
