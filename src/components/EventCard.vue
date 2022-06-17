@@ -47,7 +47,7 @@ export default Vue.extend({
           }
         })
         .catch(err => console.log(err))
-      const pages = (this.getPageInfo.currentPage > this.getPageInfo.totalItems / this.getPageInfo.delimiter)
+      const pages = (this.getPageInfo.currentPage > Math.ceil(this.getPageInfo.totalItems / this.getPageInfo.delimiter))
         ? this.getPageInfo.currentPage - 1
         : this.getPageInfo.currentPage
       await axios.get(`http://localhost:3000/events?_limit=${this.getPageInfo.delimiter}&_page=${pages}`)

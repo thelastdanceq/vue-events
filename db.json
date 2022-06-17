@@ -231,48 +231,6 @@
       "date": "",
       "time": "5:00",
       "attendees": []
-    },
-    {
-      "id": "217e7f1a-d0f3-48b5-9521-1cd3fa3a4f1d",
-      "title": "",
-      "date": "",
-      "time": "",
-      "location": "",
-      "description": "",
-      "organizer": [
-        {
-          "id": "213c0493-c304-47c4-94b8-467489656137",
-          "name": ""
-        }
-      ],
-      "category": "",
-      "attendees": [
-        {
-          "id": "577600f0-ace7-4b46-bcd7-faa0b07b8b49",
-          "name": ""
-        }
-      ]
-    },
-    {
-      "id": "0e1aa0a1-d586-4df1-aeb6-1bc2b6214474",
-      "title": "",
-      "date": "",
-      "time": "",
-      "location": "",
-      "description": "",
-      "organizer": [
-        {
-          "id": "3b901a6c-fb18-4d12-a3e8-e5ce51217248",
-          "name": ""
-        }
-      ],
-      "category": "",
-      "attendees": [
-        {
-          "id": "9385bc80-276f-4c34-9ea2-c0bffc0c49dc",
-          "name": ""
-        }
-      ]
     }
   ]
 }
