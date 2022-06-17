@@ -95,7 +95,6 @@ export default Vue.extend({
                     if (data.status === 201) {
                         alert(`New event with id : ${this.newEvent.id} was created !`)
                     }
-
                     this.newEvent = {
                         id: uuidv4(), //done
                         title: "", // done 
