@@ -5,10 +5,9 @@
       <EventCard v-for="event in targetEvents" :key="event.id" :event="event" />
     </ul>
     <ul class="pagination">
-      <li v-for="number in Math.ceil($store.state.pagination.totalItems / $store.state.pagination.delimiter)"
-        :key="number">
+      <li v-for="number in Math.ceil(getPageInfo.totalItems / getPageInfo.delimiter)" :key="number">
         <button @click="onChangePage(number)" :class="
-      $store.state.pagination.currentPage === number ?
+      getPageInfo.currentPage === number ?
         'active deep-purple btn' :
         'common deep-purple lighten-5 btn'">{{
         number
@@ -23,6 +22,7 @@
 import { IEvent } from "@/types/types";
 import axios from "axios";
 import Vue from "vue";
+import { mapGetters } from "vuex";
 import EventCard from "./EventCard.vue";
 
 export default Vue.extend({
@@ -32,8 +32,8 @@ export default Vue.extend({
   methods: {
     onChangePage(id: number) {
       this.$store.dispatch('setCurrentPage', id)
-      axios.get(`http://localhost:3000/events?_limit=${this.$store.state.pagination.delimiter}&_page=${id}`)
-        .then(data => { 
+      axios.get(`http://localhost:3000/events?_limit=${this.getPageInfo.delimiter}&_page=${id}`)
+        .then(data => {
           this.$store.dispatch('fillEvents', data.data)
           this.$store.dispatch('setTotalItems', data.headers['x-total-count'])
         })
@@ -43,7 +43,8 @@ export default Vue.extend({
   computed: {
     targetEvents(): IEvent[] {
       return this.$store.state.events.events
-    }
+    },
+    ...mapGetters(["getPageInfo"]),
   },
 });
 </script>

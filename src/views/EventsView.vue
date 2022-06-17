@@ -12,7 +12,6 @@ import Vue from "vue";
 export default Vue.extend({
   components: { EventList },
   mounted() {
-    console.log(this.$store.state.pagination.currentPage);
 
     axios.get(`http://localhost:3000/events?_limit=${this.$store.state.pagination.delimiter}&_page=${this.$store.state.pagination.currentPage}`)
       .then(data => {

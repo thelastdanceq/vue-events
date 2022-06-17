@@ -12,9 +12,7 @@
     <button class="btn deep-purple accent-1 button" @click="deleteHandle">
       delete
     </button>
-    <button class="btn deep-purple accent-1 button" @click="onUpdate">
-      update
-    </button>
+
   </div>
 </template>
 

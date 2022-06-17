@@ -31,7 +31,8 @@ export default Vue.extend({
   },
   components: {
     PreLoder
-  }
+  },
+  
 })
 </script>
 
