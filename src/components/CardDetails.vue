@@ -1,5 +1,5 @@
 <template>
-  <div class="card-details">
+  <div class="card-details" v-if="getDetails[0]">
     <div class="card-details-back" @click="clickModal">
       <div v-if="!updating" class="card-details-modal">
         <button @click="handleClose" class="btn close-btn deep-purple accent-1">
